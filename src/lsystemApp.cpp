@@ -34,7 +34,7 @@ void lsystemApp::setup() {
 
 	theSystem = LSystem("FA")
 		.colors()
-		.iterations(5);
+		.iterations(4);
 
 	auto shader = gl::ShaderDef().color();
 
@@ -44,12 +44,12 @@ void lsystemApp::setup() {
 }
 
 void lsystemApp::update() {
-	float camDist = camDistance * camDistance + 1.0f;
 	quat ballQuat = theArcball.getQuat();
-	ballQuat.w *= -1.0f;
+	// ballQuat.w *= -1.0f;
 	vec3 camTarget = vec3(0, 0, 0);
-	vec3 camOffset = ballQuat * vec3(0.0f, 0.0f, camDist);
-	vec3 camEye = camTarget - camOffset;
+	vec3 camOffset = ballQuat * vec3(0.0f, 0.0f, camDistance);
+	vec3 camEye = camOffset - camTarget;
+	// vec3 camEye = camTarget - camOffset;
 	vec3 camUp = ballQuat * vec3(0, 1, 0);
 	theCamera.lookAt(camEye, camTarget, camUp);
 }

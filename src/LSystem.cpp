@@ -52,7 +52,7 @@ void LSystem::computeSystem() const
 	}
 
 	std::cout << "Computed the system:" << std::endl;
-	std::cout << treeDescription << std::endl;
+	// std::cout << treeDescription << std::endl;
 
 	// Generate the mesh from the description
 	// positions
@@ -64,7 +64,7 @@ void LSystem::computeSystem() const
 	vec3 heading(0, 1, 0);
 	vec3 xaxis(1, 0, 0);
 	vec3 zaxis(0, 0, 1);
-	float rotationAngle = glm::radians(30.0f);
+	float rotationAngle = glm::radians(20.0f);
 	float branchLength = 1.0f;
 
 	Color brown = Color("brown");
