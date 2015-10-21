@@ -5,25 +5,27 @@
 
 #include "cinder/GeomIo.h"
 
-// System description
-// A : split-trunk node (this is a bud - it turns into more trunk)
+// L-System elements description
+// A : split-trunk node (this is a bud - it turns into a branched trunk with buds at each end)
 // F : solid-trunk forward step (move forward 1 unit along heading)
 // B : backward step (move backward 1 unit along heading)
 // L : fork left (rotate heading 30deg around Z-axis)
 // R : fork right (rotate heading -30deg around Z-axis)
-// N : fork anterior (rotate heading 30deg around X-axis)
-// P : fork posterior (rotate heading -30deg around X-axis)
+// N : fork anterior (rotate heading 30deg around X-axis) (not yet implemented)
+// P : fork posterior (rotate heading -30deg around X-axis) (not yet implemented)
 // 
+// Transformation rules
 // A -> LFABRRFABL
 // F -> F
 // B -> B
 // L -> L
 // R -> R
 // 
+// Example:
 // Start: FA
-// 1: FLFABRRFABL
-// 2: FLFLFABRRFABLBRRFLFABRRFABLBL
-// 3: FLFLFLFABRRFABLBRRFLFABRRFABLBLBRRFLFLFABRRFABLBRRFLFABRRFABLBLBL
+// Iteration 1: FLFABRRFABL
+// Iteration 2: FLFLFABRRFABLBRRFLFABRRFABLBL
+// Iteration 3: FLFLFLFABRRFABLBRRFLFABRRFABLBLBRRFLFLFABRRFABLBRRFLFABRRFABLBLBL
 
 class LSystem : public ci::geom::Source {
 public:

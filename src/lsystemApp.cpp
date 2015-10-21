@@ -26,9 +26,9 @@ void lsystemApp::setup() {
 
 	theSystem = LSystem("FA")
 		.colors()
-		.iterations(3);
+		.iterations(5);
 
-	theCamera.lookAt(vec3(0, 0, 5), vec3(0, 0, 0));
+	theCamera.lookAt(vec3(3, 7, 5), vec3(0, 5, 0));
 
 	auto shader = gl::ShaderDef().color();
 
@@ -38,10 +38,13 @@ void lsystemApp::setup() {
 }
 
 void lsystemApp::update() {
+
 }
 
 void lsystemApp::draw() {
-	gl::clear( Color( 0, 0, 0 ) ); 
+	gl::clear( Color( 0, 0, 0 ) );
+
+	gl::setMatrices(theCamera);
 
 	theBatch->draw();
 }
