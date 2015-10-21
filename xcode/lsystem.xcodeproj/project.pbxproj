@@ -18,10 +18,9 @@
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		FD96597A23AE4E6482B818F4 /* lsystem_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 8B972B4263EA47788AB34A5C /* lsystem_Prefix.pch */; };
-		BADF5E3CE33244879C6A55A0 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 70D82EF0668246B9833BF4E3 /* CinderApp.icns */; };
-		24D7629D22FE4C0CACDFB7AF /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3879123C744877BFF5E2B0 /* Resources.h */; };
 		9FDB6F32E98A442A97537908 /* lsystemApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378AA98AC7E34620866BD482 /* lsystemApp.cpp */; };
+		BADF5E3CE33244879C6A55A0 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 70D82EF0668246B9833BF4E3 /* CinderApp.icns */; };
+		EF1498DA1BD458DC00770BC4 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF1498D81BD458DC00770BC4 /* LSystem.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,13 +36,15 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		378AA98AC7E34620866BD482 /* lsystemApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = lsystemApp.cpp; path = ../src/lsystemApp.cpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
+		6C3879123C744877BFF5E2B0 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
+		70D82EF0668246B9833BF4E3 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		7B61A4EBA72E4AFD8CD38150 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B972B4263EA47788AB34A5C /* lsystem_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = lsystem_Prefix.pch; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* lsystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lsystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		378AA98AC7E34620866BD482 /* lsystemApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/lsystemApp.cpp; sourceTree = "<group>"; name = lsystemApp.cpp; };
-		6C3879123C744877BFF5E2B0 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
-		70D82EF0668246B9833BF4E3 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; name = CinderApp.icns; };
-		7B61A4EBA72E4AFD8CD38150 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
-		8B972B4263EA47788AB34A5C /* lsystem_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = lsystem_Prefix.pch; sourceTree = "<group>"; name = lsystem_Prefix.pch; };
+		EF1498D81BD458DC00770BC4 /* LSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LSystem.cpp; path = ../src/LSystem.cpp; sourceTree = "<group>"; };
+		EF1498D91BD458DC00770BC4 /* LSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSystem.h; path = ../src/LSystem.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,9 +69,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01B97315FEAEA392516A2CEA /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Blocks;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				EF1498D81BD458DC00770BC4 /* LSystem.cpp */,
+				EF1498D91BD458DC00770BC4 /* LSystem.h */,
 				378AA98AC7E34620866BD482 /* lsystemApp.cpp */,
 			);
 			name = Source;
@@ -122,13 +132,6 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = lsystem;
-			sourceTree = "<group>";
-		};
-		01B97315FEAEA392516A2CEA /* Blocks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Blocks;
 			sourceTree = "<group>";
 		};
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
@@ -184,6 +187,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "lsystem" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -220,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FDB6F32E98A442A97537908 /* lsystemApp.cpp in Sources */,
+				EF1498DA1BD458DC00770BC4 /* LSystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,17 +236,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = lsystem_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = lsystem_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -262,12 +268,12 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = lsystem_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NDEBUG=1",
 					"$(inherited)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = lsystem_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -284,7 +290,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CINDER_PATH = "../../../cinder";
+				CINDER_PATH = ../../../cinder;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				ENABLE_TESTABILITY = YES;
@@ -302,7 +308,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CINDER_PATH = "../../../cinder";
+				CINDER_PATH = ../../../cinder;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
