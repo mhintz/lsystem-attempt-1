@@ -1,6 +1,7 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "cinder/Arcball.h"
 
 #include "LSystem.h"
 
@@ -13,22 +14,27 @@ class lsystemApp : public App {
 	void setup() override;
 	void update() override;
 	void draw() override;
+	void mouseDown(MouseEvent) override;
+	void mouseDrag(MouseEvent) override;
+
+	CameraPersp theCamera;
+	Arcball theArcball;
+	float camDistance = 5.0f;
 
 	LSystem theSystem;
-	CameraPersp theCamera;
 	gl::GlslProgRef theProgram;
 	gl::BatchRef theBatch;
 };
 
 void lsystemApp::setup() {
+	theArcball = Arcball(& theCamera, cinder::Sphere(vec3(0, 0, 0), camDistance));
+
 	gl::enableDepthRead();
 	gl::enableDepthWrite();
 
 	theSystem = LSystem("FA")
 		.colors()
 		.iterations(5);
-
-	theCamera.lookAt(vec3(3, 7, 5), vec3(0, 5, 0));
 
 	auto shader = gl::ShaderDef().color();
 
@@ -38,7 +44,14 @@ void lsystemApp::setup() {
 }
 
 void lsystemApp::update() {
-
+	float camDist = camDistance * camDistance + 1.0f;
+	quat ballQuat = theArcball.getQuat();
+	ballQuat.w *= -1.0f;
+	vec3 camTarget = vec3(0, 0, 0);
+	vec3 camOffset = ballQuat * vec3(0.0f, 0.0f, camDist);
+	vec3 camEye = camTarget - camOffset;
+	vec3 camUp = ballQuat * vec3(0, 1, 0);
+	theCamera.lookAt(camEye, camTarget, camUp);
 }
 
 void lsystemApp::draw() {
@@ -47,6 +60,16 @@ void lsystemApp::draw() {
 	gl::setMatrices(theCamera);
 
 	theBatch->draw();
+}
+
+void lsystemApp::mouseDown(MouseEvent evt) {
+	// Update the Arcball model
+	theArcball.mouseDown(evt);
+}
+
+void lsystemApp::mouseDrag(MouseEvent evt) {
+	// Update the Arcball model
+	theArcball.mouseDrag(evt);
 }
 
 CINDER_APP( lsystemApp, RendererGl )
