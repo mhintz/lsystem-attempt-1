@@ -1,42 +1,12 @@
 #include "LSystem.h"
 
-#include "cinder/Rand.h"
-
 #include <iostream>
 
+#include "cinder/Rand.h"
+
+#include "TreeNode.h"
+
 using namespace cinder;
-
-std::string getNext(char systemPoint) {
-	switch (systemPoint) {
-		// case 'A' : return Rand::randFloat() < 0.5f ? "LFABRRFABL" : "PFABNNFABP";
-		case 'A' : return "LFABRRFABLPFABNNFABP";
-		case 'F' : return "F";
-		case 'B' : return "B";
-		case 'L' : return "L";
-		case 'R' : return "R";
-		case 'N' : return "N";
-		case 'P' : return "P";
-		default: return "";
-	}
-}
-
-std::string iterateSystem(std::string description) {
-	std::string nextIteration;
-	for (char & systemNode : description) {
-		nextIteration += getNext(systemNode);
-	}
-	return nextIteration;
-}
-
-LSystem::LSystem() :
-	mInitialState(std::string()), mNumIterations(3), mHasColors(false), mCalculationsCached(false)
-{
-}
-
-LSystem::LSystem(std::string const & trunk) :
-	mInitialState(trunk), mNumIterations(3), mHasColors(false), mCalculationsCached(false)
-{
-}
 
 void LSystem::computeSystem() const
 {
@@ -44,70 +14,51 @@ void LSystem::computeSystem() const
 		return;
 	}
 
-	// Compute the description by iterating the L-System
-	std::string treeDescription = mInitialState;
+	TreeNode root = TreeNode();
 
-	for (int i = 0; i < mNumIterations; i++) {
-		treeDescription = iterateSystem(treeDescription);
-	}
+	std::vector<TreeNode *> iterChildren;
+	std::vector<TreeNode *> nextChildren;
 
-	std::cout << "Computed the system:" << std::endl;
-	// std::cout << treeDescription << std::endl;
+	iterChildren.push_back(& root);
 
-	// Generate the mesh from the description
-	// positions
-	// normals
-	// colors
-	// indices
+	for (int i = 1; i <= mNumIterations; i++) {
+		nextChildren.clear();
 
-	vec3 position(0, 0, 0);
-	vec3 heading(0, 1, 0);
-	vec3 xaxis(1, 0, 0);
-	vec3 zaxis(0, 0, 1);
-	float rotationAngle = glm::radians(20.0f);
-	float branchLength = 1.0f;
+		for (TreeNode * iterBranch : iterChildren) {
+			iterBranch->generateChildren(i);
 
-	Color brown = Color("brown");
-	int vertexCount = 0;
-
-	for (char & systemNode : treeDescription) {
-		if (systemNode == 'A') {
-		// Nothing, this is an end branch
-		} else if (systemNode == 'F') {
-		// Add a forward branch
-			mPositions.push_back(position);
-			mColors.push_back(brown.get(CM_RGB));
-			mNormals.push_back(vec3());
-			mIndices.push_back(vertexCount++);
-
-			position = position + branchLength * heading;
-
-			mPositions.push_back(position);
-			mColors.push_back(brown.get(CM_RGB));
-			mNormals.push_back(vec3());
-			mIndices.push_back(vertexCount++);
-		} else if (systemNode == 'B') {
-		// Move backwards along heading
-			position = position - branchLength * heading;
-		} else if (systemNode == 'L') {
-			heading = angleAxis(rotationAngle, zaxis) * heading;
-		} else if (systemNode == 'R') {
-			heading = angleAxis(-rotationAngle, zaxis) * heading;
-		} else if (systemNode == 'N') {
-			heading = angleAxis(rotationAngle, xaxis) * heading;
-		} else if (systemNode == 'P') {
-			heading = angleAxis(-rotationAngle, xaxis) * heading;
+			std::vector<TreeNode> & branchChildren = iterBranch->getChildrenRef();
+			for (TreeNode & child : branchChildren) {
+				nextChildren.push_back(& child);
+			}
 		}
+
+		iterChildren = nextChildren;
 	}
+
+	root.visitBreadthFirst([&] (TreeNode * theNode) {
+		Color const brown = Color("brown");
+		std::vector<vec3> nodePositions = theNode->getPositions();
+		for (vec3 & pos : nodePositions) {
+			this->mIndices.push_back((uint32_t) this->mPositions.size());
+			this->mPositions.push_back(pos);
+			this->mColors.push_back(brown.get(CM_RGB));
+			this->mNormals.push_back(vec3(0, 0, 0));
+		}
+	});
 
 	mCalculationsCached = true;
+}
+
+void LSystem::addNodeToBuffers(TreeNode * theNode) {
+	std::cout << this << std::endl;
 }
 
 uint8_t LSystem::getAttribDims( geom::Attrib attr ) const {
 	switch (attr) {
 		case geom::Attrib::POSITION: return 3;
 		case geom::Attrib::NORMAL: return 3;
-		case geom::Attrib::COLOR: return mHasColors ? 3 : 0;
+		case geom::Attrib::COLOR: return 3;
 		// to be added
 		// case geom::Attrib::TANGENT: return 3;
 		default:

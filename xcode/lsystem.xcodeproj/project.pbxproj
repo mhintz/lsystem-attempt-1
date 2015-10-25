@@ -21,6 +21,7 @@
 		9FDB6F32E98A442A97537908 /* lsystemApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378AA98AC7E34620866BD482 /* lsystemApp.cpp */; };
 		BADF5E3CE33244879C6A55A0 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 70D82EF0668246B9833BF4E3 /* CinderApp.icns */; };
 		EF1498DA1BD458DC00770BC4 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF1498D81BD458DC00770BC4 /* LSystem.cpp */; settings = {ASSET_TAGS = (); }; };
+		EF9FC32D1BD92FCD0058D016 /* TreeNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF9FC32B1BD92FCD0058D016 /* TreeNode.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,8 @@
 		8D1107320486CEB800E47090 /* lsystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lsystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF1498D81BD458DC00770BC4 /* LSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LSystem.cpp; path = ../src/LSystem.cpp; sourceTree = "<group>"; };
 		EF1498D91BD458DC00770BC4 /* LSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSystem.h; path = ../src/LSystem.h; sourceTree = "<group>"; };
+		EF9FC32B1BD92FCD0058D016 /* TreeNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TreeNode.cpp; path = ../src/TreeNode.cpp; sourceTree = "<group>"; };
+		EF9FC32C1BD92FCD0058D016 /* TreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeNode.h; path = ../src/TreeNode.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +82,8 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				EF9FC32B1BD92FCD0058D016 /* TreeNode.cpp */,
+				EF9FC32C1BD92FCD0058D016 /* TreeNode.h */,
 				EF1498D81BD458DC00770BC4 /* LSystem.cpp */,
 				EF1498D91BD458DC00770BC4 /* LSystem.h */,
 				378AA98AC7E34620866BD482 /* lsystemApp.cpp */,
@@ -225,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FDB6F32E98A442A97537908 /* lsystemApp.cpp in Sources */,
+				EF9FC32D1BD92FCD0058D016 /* TreeNode.cpp in Sources */,
 				EF1498DA1BD458DC00770BC4 /* LSystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

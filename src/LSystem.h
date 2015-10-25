@@ -5,6 +5,8 @@
 
 #include "cinder/GeomIo.h"
 
+#include "TreeNode.h"
+
 // L-System elements description
 // A : split-trunk node (this is a bud - it turns into a branched trunk with buds at each end)
 // F : solid-trunk forward step (move forward 1 unit along heading)
@@ -29,12 +31,6 @@
 
 class LSystem : public ci::geom::Source {
 public:
-	LSystem();
-	LSystem(std::string const &);
-
-	LSystem & colors(bool enable = true) { mHasColors = enable; return *this; }
-	LSystem & initialState(std::string trunk) { mInitialState = trunk; return *this; }
-	LSystem & initialState(char const * trunk) { mInitialState = trunk; return *this; }
 	LSystem & iterations(int iters) { mNumIterations = iters; return *this; }
 
 	size_t getNumVertices() const override { computeSystem(); return mPositions.size(); };
@@ -43,16 +39,16 @@ public:
 	uint8_t getAttribDims( ci::geom::Attrib attr ) const override;
 	ci::geom::AttribSet getAvailableAttribs() const override;
 	void loadInto( ci::geom::Target *target, const ci::geom::AttribSet &requestedAttribs ) const override;
-	LSystem* clone() const override { return new LSystem( *this ); }
+	LSystem* clone() const override { return new LSystem( *this ); /* Uses copy-constructor */ }
 
-protected:
 	void computeSystem() const;
 
-	std::string mInitialState;
-	int mNumIterations;
-	bool mHasColors;
+protected:
+	void addNodeToBuffers(TreeNode *);
 
-	mutable bool mCalculationsCached;
+	int mNumIterations = 3;
+
+	mutable bool mCalculationsCached = false;
 
 	mutable std::vector<ci::vec3> mPositions, mNormals, mColors;
 	mutable std::vector<uint32_t> mIndices;

@@ -19,37 +19,43 @@ class lsystemApp : public App {
 
 	CameraPersp theCamera;
 	Arcball theArcball;
-	float camDistance = 5.0f;
+	float camDistance = 100.0f;
+	vec3 camTarget = vec3(0, 0, 0);
 
 	LSystem theSystem;
 	gl::GlslProgRef theProgram;
-	gl::BatchRef theBatch;
+
+	std::vector<gl::BatchRef> theBatches;
 };
 
 void lsystemApp::setup() {
-	theArcball = Arcball(& theCamera, cinder::Sphere(vec3(0, 0, 0), camDistance));
+	theArcball = Arcball(& theCamera, cinder::Sphere(camTarget, camDistance * 2.f / 3.f));
 
 	gl::enableDepthRead();
 	gl::enableDepthWrite();
 
-	theSystem = LSystem("FA")
-		.colors()
+	theSystem = LSystem()
 		.iterations(4);
+
+	theSystem.computeSystem();
 
 	auto shader = gl::ShaderDef().color();
 
 	theProgram = gl::getStockShader(shader);
 
-	theBatch = gl::Batch::create(theSystem, theProgram);
+	for (int xmove = -10; xmove <= 10; xmove++) {
+		for (int zmove = -10; zmove <= 10; zmove++) {
+			gl::BatchRef iterBatch = gl::Batch::create(theSystem >> geom::Translate((float) xmove * 6.0f, 0.f, (float) zmove * 6.0f), theProgram);
+			theBatches.push_back(iterBatch);
+		}
+	}
+
 }
 
 void lsystemApp::update() {
 	quat ballQuat = theArcball.getQuat();
-	// ballQuat.w *= -1.0f;
-	vec3 camTarget = vec3(0, 0, 0);
-	vec3 camOffset = ballQuat * vec3(0.0f, 0.0f, camDistance);
-	vec3 camEye = camOffset - camTarget;
-	// vec3 camEye = camTarget - camOffset;
+	vec3 camOffset = ballQuat * vec3(0, 0, camDistance);
+	vec3 camEye = camTarget + camOffset;
 	vec3 camUp = ballQuat * vec3(0, 1, 0);
 	theCamera.lookAt(camEye, camTarget, camUp);
 }
@@ -59,7 +65,9 @@ void lsystemApp::draw() {
 
 	gl::setMatrices(theCamera);
 
-	theBatch->draw();
+	for (auto treeBatch : theBatches) {
+		treeBatch->draw();
+	}
 }
 
 void lsystemApp::mouseDown(MouseEvent evt) {
