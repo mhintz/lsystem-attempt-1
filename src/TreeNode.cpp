@@ -20,7 +20,7 @@ vec3 TreeNode::getGlobalBasePosition() {
 
 quat TreeNode::getGlobalOrientation() {
 	if (mParent) {
-		return mOrientation * mParent->getGlobalOrientation();
+		return glm::normalize(mOrientation * mParent->getGlobalOrientation());
 	}
 	return mOrientation;
 }
