@@ -22,8 +22,13 @@ class lsystemApp : public App {
 
 	CameraPersp theCamera;
 	Arcball theArcball;
-	float camDistance = 100.0f;
+	// float camDistance = 100.0f;
+	// vec3 camTarget = vec3(0, 0, 0);
+
+	float camDistance = 10.0f;
 	vec3 camTarget = vec3(0, 0, 0);
+	int numTreesX = 0;
+	int numTreesZ = 0;
 
 	LSystem theSystem;
 	std::vector<gl::BatchRef> theBatches;
@@ -59,8 +64,8 @@ void lsystemApp::redoSystem() {
 	theBatches.clear();
 	theBatches = std::vector<gl::BatchRef>();
 
-	for (int xmove = -10; xmove <= 10; xmove++) {
-		for (int zmove = -10; zmove <= 10; zmove++) {
+	for (int xmove = -numTreesX; xmove <= numTreesX; xmove++) {
+		for (int zmove = -numTreesZ; zmove <= numTreesZ; zmove++) {
 			gl::BatchRef iterBatch = gl::Batch::create(theSystem >> geom::Translate((float) xmove * 6.0f, 0.f, (float) zmove * 6.0f), program);
 			theBatches.push_back(iterBatch);
 		}
