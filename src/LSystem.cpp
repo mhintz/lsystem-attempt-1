@@ -22,8 +22,8 @@ void LSystem::computeSystem() const
 
 	TreeNode root = TreeNode();
 
-	std::vector<TreeNode *> iterChildren;
-	std::vector<TreeNode *> nextChildren;
+	vector<TreeNode *> iterChildren;
+	vector<TreeNode *> nextChildren;
 
 	iterChildren.push_back(& root);
 
@@ -33,7 +33,7 @@ void LSystem::computeSystem() const
 		for (TreeNode * iterBranch : iterChildren) {
 			iterBranch->generateChildren(i);
 
-			std::vector<TreeNode> & branchChildren = iterBranch->getChildrenRef();
+			vector<TreeNode> & branchChildren = iterBranch->getChildrenRef();
 			for (TreeNode & child : branchChildren) {
 				nextChildren.push_back(& child);
 			}
@@ -86,7 +86,7 @@ void LSystem::loadInto( geom::Target *target, const geom::AttribSet &requestedAt
 	target->copyAttrib(geom::Attrib::COLOR, 3, 0, value_ptr(*(mColors.data())), mColors.size());
 
 	// to be added
-	// std::vector<vec3> tangents;
+	// vector<vec3> tangents;
 	// need to calculate tangents
 	// target->copyAttrib(geom::Attrib::TANGENT, 3, 0, value_ptr(*(tangents.data())), tangents.size());
 
