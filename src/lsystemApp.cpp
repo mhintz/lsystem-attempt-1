@@ -26,8 +26,6 @@ class lsystemApp : public App {
 	vec3 camTarget = vec3(0, 0, 0);
 
 	LSystem theSystem;
-	gl::GlslProgRef theProgram;
-
 	std::vector<gl::BatchRef> theBatches;
 };
 
@@ -53,12 +51,14 @@ void lsystemApp::redoSystem() {
 	theSystem.computeSystem();
 
 	auto shader = gl::ShaderDef().color();
+	auto program = gl::getStockShader(shader);
 
-	theProgram = gl::getStockShader(shader);
+	theBatches.clear();
+	theBatches = std::vector<gl::BatchRef>();
 
 	for (int xmove = -10; xmove <= 10; xmove++) {
 		for (int zmove = -10; zmove <= 10; zmove++) {
-			gl::BatchRef iterBatch = gl::Batch::create(theSystem >> geom::Translate((float) xmove * 6.0f, 0.f, (float) zmove * 6.0f), theProgram);
+			gl::BatchRef iterBatch = gl::Batch::create(theSystem >> geom::Translate((float) xmove * 6.0f, 0.f, (float) zmove * 6.0f), program);
 			theBatches.push_back(iterBatch);
 		}
 	}

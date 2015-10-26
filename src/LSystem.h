@@ -50,6 +50,8 @@ protected:
 
 	mutable bool mCalculationsCached = false;
 
-	mutable std::vector<ci::vec3> mPositions, mNormals, mColors;
+	mutable std::vector<ci::vec3> mPositions;
+	mutable std::vector<ci::vec3> mNormals;
+	mutable std::vector<ci::vec3> mColors;
 	mutable std::vector<uint32_t> mIndices;
 };
