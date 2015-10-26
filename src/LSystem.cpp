@@ -39,11 +39,12 @@ void LSystem::computeSystem() const
 	root.visitBreadthFirst([&] (TreeNode * theNode) {
 		TreeNode::BranchAttribsRef nodeAttributes = theNode->getAttributes();
 
+		uint32_t baseIndex = this->mPositions.size();
+
 		this->mPositions.insert(this->mPositions.end(), nodeAttributes->positions.begin(), nodeAttributes->positions.end());
 		this->mColors.insert(this->mColors.end(), nodeAttributes->colors.begin(), nodeAttributes->colors.end());
 		this->mNormals.insert(this->mNormals.end(), nodeAttributes->normals.begin(), nodeAttributes->normals.end());
 
-		uint32_t baseIndex = this->mPositions.size();
 		for (uint32_t index : nodeAttributes->indices) {
 			this->mIndices.push_back(baseIndex + index);
 		}
