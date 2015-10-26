@@ -55,8 +55,8 @@ TreeNode::BranchAttribsRef TreeNode::getAttributes() {
 	for (int count = 0; count < NUM_SIDES; count++) {
 		vec3 radial = radius * glm::normalize(orientation * glm::rotateY(vec3(1, 0, 0), rotation * count));
 		std::cout << radial << std::endl;
-		// vec3 vertPosition = basePos + radial;
-		vec3 vertPosition = basePos;
+		vec3 vertPosition = basePos + radial;
+		// vec3 vertPosition = basePos;
 
 		attribs->positions.push_back(vertPosition);
 		attribs->colors.push_back(Color::hex(0x5C3118));
