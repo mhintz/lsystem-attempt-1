@@ -44,8 +44,6 @@ public:
 	void computeSystem() const;
 
 protected:
-	void addNodeToBuffers(TreeNode *);
-
 	int mNumIterations = 3;
 
 	mutable bool mCalculationsCached = false;

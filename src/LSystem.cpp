@@ -53,10 +53,6 @@ void LSystem::computeSystem() const
 	mCalculationsCached = true;
 }
 
-void LSystem::addNodeToBuffers(TreeNode * theNode) {
-	std::cout << this << std::endl;
-}
-
 uint8_t LSystem::getAttribDims( geom::Attrib attr ) const {
 	switch (attr) {
 		case geom::Attrib::POSITION: return 3;
