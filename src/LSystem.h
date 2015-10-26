@@ -31,8 +31,10 @@
 
 class LSystem : public ci::geom::Source {
 public:
-	LSystem & iterations(int iters) { mNumIterations = iters; return *this; }
+	// Initialization functions
+	LSystem & iterations(int iters) { invalidate(); mNumIterations = iters; return *this; }
 
+	// Overloads for ci::geom::Source
 	size_t getNumVertices() const override { computeSystem(); return mPositions.size(); };
 	size_t getNumIndices() const override { computeSystem(); return mIndices.size(); };
 	ci::geom::Primitive getPrimitive() const override { return ci::geom::Primitive::LINES; }
@@ -41,10 +43,14 @@ public:
 	void loadInto( ci::geom::Target *target, const ci::geom::AttribSet &requestedAttribs ) const override;
 	LSystem* clone() const override { return new LSystem( *this ); /* Uses copy-constructor */ }
 
+	// Actually computes the system. Has to be "const", because ci::geom::Source requires const overrides
+	// In fact, this function does more mutation of this object than any other... :/
 	void computeSystem() const;
 
 protected:
 	int mNumIterations = 3;
+
+	void invalidate() { mCalculationsCached = false; }
 
 	mutable bool mCalculationsCached = false;
 

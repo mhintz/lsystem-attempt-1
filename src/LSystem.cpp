@@ -7,12 +7,18 @@
 #include "TreeNode.h"
 
 using namespace cinder;
+using std::vector;
 
 void LSystem::computeSystem() const
 {
 	if (mCalculationsCached) {
 		return;
 	}
+
+	mPositions = vector<vec3>();
+	mNormals = vector<vec3>();
+	mColors = vector<vec3>();
+	mIndices = vector<uint32_t>();
 
 	TreeNode root = TreeNode();
 
