@@ -22,6 +22,7 @@
 		BADF5E3CE33244879C6A55A0 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 70D82EF0668246B9833BF4E3 /* CinderApp.icns */; };
 		EF1498DA1BD458DC00770BC4 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF1498D81BD458DC00770BC4 /* LSystem.cpp */; settings = {ASSET_TAGS = (); }; };
 		EF9FC32D1BD92FCD0058D016 /* TreeNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF9FC32B1BD92FCD0058D016 /* TreeNode.cpp */; settings = {ASSET_TAGS = (); }; };
+		EF9FC3301BDDAAA50058D016 /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF9FC32E1BDDAAA50058D016 /* Util.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,8 @@
 		EF1498D91BD458DC00770BC4 /* LSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSystem.h; path = ../src/LSystem.h; sourceTree = "<group>"; };
 		EF9FC32B1BD92FCD0058D016 /* TreeNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TreeNode.cpp; path = ../src/TreeNode.cpp; sourceTree = "<group>"; };
 		EF9FC32C1BD92FCD0058D016 /* TreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeNode.h; path = ../src/TreeNode.h; sourceTree = "<group>"; };
+		EF9FC32E1BDDAAA50058D016 /* Util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Util.cpp; path = ../src/Util.cpp; sourceTree = "<group>"; };
+		EF9FC32F1BDDAAA50058D016 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../src/Util.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +85,8 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				EF9FC32E1BDDAAA50058D016 /* Util.cpp */,
+				EF9FC32F1BDDAAA50058D016 /* Util.h */,
 				EF9FC32B1BD92FCD0058D016 /* TreeNode.cpp */,
 				EF9FC32C1BD92FCD0058D016 /* TreeNode.h */,
 				EF1498D81BD458DC00770BC4 /* LSystem.cpp */,
@@ -232,6 +237,7 @@
 				9FDB6F32E98A442A97537908 /* lsystemApp.cpp in Sources */,
 				EF9FC32D1BD92FCD0058D016 /* TreeNode.cpp in Sources */,
 				EF1498DA1BD458DC00770BC4 /* LSystem.cpp in Sources */,
+				EF9FC3301BDDAAA50058D016 /* Util.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,10 +12,19 @@ public:
 	TreeNode & scale(float _scale) { mScale = _scale; return *this; }
 	TreeNode & setParent(TreeNode * newParent) { mParent = newParent; return *this; }
 
+	struct BranchAttribs {
+		std::vector<ci::vec3> positions;
+		std::vector<ci::Color> colors;
+		std::vector<ci::vec3> normals;
+		std::vector<uint32_t> indices;
+	};
+
+	typedef std::unique_ptr<BranchAttribs> BranchAttribsRef;
+
 	ci::vec3 getVector();
 	ci::vec3 getGlobalBasePosition();
 	ci::quat getGlobalOrientation();
-	std::vector<ci::vec3> getPositions();
+	BranchAttribsRef getAttributes();
 	std::vector<TreeNode> & getChildrenRef() { return mChildren; };
 	// The parameter here seems to be the best type declaration for a lambda function
 	void visitBreadthFirst(std::function<void (TreeNode *)> const &);

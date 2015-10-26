@@ -37,13 +37,15 @@ void LSystem::computeSystem() const
 	}
 
 	root.visitBreadthFirst([&] (TreeNode * theNode) {
-		Color const brown = Color("brown");
-		std::vector<vec3> nodePositions = theNode->getPositions();
-		for (vec3 & pos : nodePositions) {
-			this->mIndices.push_back((uint32_t) this->mPositions.size());
-			this->mPositions.push_back(pos);
-			this->mColors.push_back(brown.get(CM_RGB));
-			this->mNormals.push_back(vec3(0, 0, 0));
+		TreeNode::BranchAttribsRef nodeAttributes = theNode->getAttributes();
+
+		this->mPositions.insert(this->mPositions.end(), nodeAttributes->positions.begin(), nodeAttributes->positions.end());
+		this->mColors.insert(this->mColors.end(), nodeAttributes->colors.begin(), nodeAttributes->colors.end());
+		this->mNormals.insert(this->mNormals.end(), nodeAttributes->normals.begin(), nodeAttributes->normals.end());
+
+		uint32_t baseIndex = this->mPositions.size();
+		for (uint32_t index : nodeAttributes->indices) {
+			this->mIndices.push_back(baseIndex + index);
 		}
 	});
 

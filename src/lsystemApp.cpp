@@ -16,6 +16,9 @@ class lsystemApp : public App {
 	void draw() override;
 	void mouseDown(MouseEvent) override;
 	void mouseDrag(MouseEvent) override;
+	void keyDown(KeyEvent) override;
+
+	void redoSystem();
 
 	CameraPersp theCamera;
 	Arcball theArcball;
@@ -34,6 +37,16 @@ void lsystemApp::setup() {
 	gl::enableDepthRead();
 	gl::enableDepthWrite();
 
+	redoSystem();
+}
+
+void lsystemApp::keyDown(KeyEvent event) {
+	if (event.getCode() == ci::app::KeyEvent::KEY_SPACE) {
+		redoSystem();
+	}
+}
+
+void lsystemApp::redoSystem() {
 	theSystem = LSystem()
 		.iterations(4);
 
@@ -49,7 +62,6 @@ void lsystemApp::setup() {
 			theBatches.push_back(iterBatch);
 		}
 	}
-
 }
 
 void lsystemApp::update() {

@@ -25,11 +25,23 @@ quat TreeNode::getGlobalOrientation() {
 	return mOrientation;
 }
 
-std::vector<vec3> TreeNode::getPositions() {
+TreeNode::BranchAttribsRef TreeNode::getAttributes() {
+	BranchAttribsRef attribs = BranchAttribsRef(new BranchAttribs());
+
 	vec3 basePos = this->getGlobalBasePosition();
 	vec3 endPos = basePos + this->getVector();
-	std::vector<vec3> retVal = { basePos, endPos };
-	return std::move(retVal);
+
+	attribs->positions.push_back(basePos);
+	attribs->colors.push_back(Color("brown"));
+	attribs->normals.push_back(vec3(0, 0, 0));
+	attribs->indices.push_back(0);
+
+	attribs->positions.push_back(endPos);
+	attribs->colors.push_back(Color("brown"));
+	attribs->normals.push_back(vec3(0, 0, 0));
+	attribs->indices.push_back(1);
+
+	return attribs;
 }
 
 void TreeNode::generateChildren(int level) {
