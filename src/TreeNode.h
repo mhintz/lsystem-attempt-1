@@ -19,7 +19,7 @@ public:
 		std::vector<uint32_t> indices;
 	};
 
-	typedef std::unique_ptr<BranchAttribs> BranchAttribsRef;
+	typedef std::shared_ptr<BranchAttribs> BranchAttribsRef;
 
 	ci::vec3 getVector();
 	ci::vec3 getGlobalBasePosition();

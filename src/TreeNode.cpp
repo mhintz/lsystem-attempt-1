@@ -36,38 +36,42 @@ int inclusiveModulo(int a, int b) {
 	return a == b ? b : a % b;
 }
 
+void addVertexToAttribs(TreeNode::BranchAttribsRef attribs, vec3 const & pos, Color const & col) {
+	attribs->indices.push_back(attribs->positions.size());
+	attribs->positions.push_back(pos);
+	attribs->colors.push_back(col);
+}
+
 } // Anonymous namespace
 
 TreeNode::BranchAttribsRef TreeNode::getAttributes() {
-	BranchAttribsRef attribs = BranchAttribsRef(new BranchAttribs());
+	TreeNode::BranchAttribsRef attribs = TreeNode::BranchAttribsRef(new BranchAttribs());
 
 	quat orientation = this->getGlobalOrientation();
 	vec3 basePos = this->getGlobalBasePosition();
 	vec3 endPos = basePos + this->getVector();
 
-	// The peak of the cone (index 0)
-	attribs->positions.push_back(endPos);
-	attribs->colors.push_back(Color::hex(0x5C3118));
-
 	int NUM_SIDES = 6;
-	float rotation = M_2_PI / NUM_SIDES;
-	float radius = 1.0f;
+	float rotation = 2.0f * glm::pi<float>() / NUM_SIDES;
+	float radius = 0.25f;
 	for (int count = 0; count < NUM_SIDES; count++) {
-		vec3 radial = radius * glm::normalize(orientation * glm::rotateY(vec3(1, 0, 0), rotation * count));
-		std::cout << radial << std::endl;
-		vec3 vertPosition = basePos + radial;
-		// vec3 vertPosition = basePos;
+		float radialRotation1 = rotation * count;
+		vec3 radial1 = radius * glm::normalize(orientation * glm::rotateY(vec3(1, 0, 0), radialRotation1));
+		vec3 vertPosition1 = basePos + radial1;
 
-		attribs->positions.push_back(vertPosition);
-		attribs->colors.push_back(Color::hex(0x5C3118));
+		float radialRotation2 = rotation * (count + 1);
+		vec3 radial2 = radius * glm::normalize(orientation * glm::rotateY(vec3(1, 0, 0), radialRotation2));
+		vec3 vertPosition2 = basePos + radial2;
 
-		// Build a triangle
-		// The 0 index is the tip of the cone
-		std::cout << inclusiveModulo(count + 1, NUM_SIDES) << "," << 0 << "," << inclusiveModulo(count + 2, NUM_SIDES) << std::endl;
+		Color brownColor = Color::hex(0x5C3118);
 
-		attribs->indices.push_back(inclusiveModulo(count + 1, NUM_SIDES));
-		attribs->indices.push_back(0);
-		attribs->indices.push_back(inclusiveModulo(count + 2, NUM_SIDES));
+		addVertexToAttribs(attribs, endPos, brownColor);
+		addVertexToAttribs(attribs, vertPosition1, brownColor);
+		addVertexToAttribs(attribs, vertPosition2, brownColor);
+
+		addVertexToAttribs(attribs, vertPosition1, brownColor);
+		addVertexToAttribs(attribs, basePos, brownColor);
+		addVertexToAttribs(attribs, vertPosition2, brownColor);
 	}
 
 	attribs->normals = util::calculateNormals(attribs->positions, attribs->indices);
