@@ -3,6 +3,8 @@
 #include <deque>
 #include <cmath>
 
+#include "Util.h"
+
 using namespace cinder;
 
 vec3 TreeNode::getVector() {
@@ -25,21 +27,50 @@ quat TreeNode::getGlobalOrientation() {
 	return mOrientation;
 }
 
+// Anonymous namespace for scoping purposes
+namespace {
+
+// Like a % b, but returns b (not 0) when a == b
+// returns 0 only when a == 0
+int inclusiveModulo(int a, int b) {
+	return a == b ? b : a % b;
+}
+
+} // Anonymous namespace
+
 TreeNode::BranchAttribsRef TreeNode::getAttributes() {
 	BranchAttribsRef attribs = BranchAttribsRef(new BranchAttribs());
 
+	quat orientation = this->getGlobalOrientation();
 	vec3 basePos = this->getGlobalBasePosition();
 	vec3 endPos = basePos + this->getVector();
 
-	attribs->positions.push_back(basePos);
-	attribs->colors.push_back(Color("brown"));
-	attribs->normals.push_back(vec3(0, 0, 0));
-	attribs->indices.push_back(0);
-
+	// The peak of the cone (index 0)
 	attribs->positions.push_back(endPos);
-	attribs->colors.push_back(Color("brown"));
-	attribs->normals.push_back(vec3(0, 0, 0));
-	attribs->indices.push_back(1);
+	attribs->colors.push_back(Color::hex(0x5C3118));
+
+	int NUM_SIDES = 6;
+	float rotation = M_2_PI / NUM_SIDES;
+	float radius = 1.0f;
+	for (int count = 0; count < NUM_SIDES; count++) {
+		vec3 radial = radius * glm::normalize(orientation * glm::rotateY(vec3(1, 0, 0), rotation * count));
+		std::cout << radial << std::endl;
+		// vec3 vertPosition = basePos + radial;
+		vec3 vertPosition = basePos;
+
+		attribs->positions.push_back(vertPosition);
+		attribs->colors.push_back(Color::hex(0x5C3118));
+
+		// Build a triangle
+		// The 0 index is the tip of the cone
+		std::cout << inclusiveModulo(count + 1, NUM_SIDES) << "," << 0 << "," << inclusiveModulo(count + 2, NUM_SIDES) << std::endl;
+
+		attribs->indices.push_back(inclusiveModulo(count + 1, NUM_SIDES));
+		attribs->indices.push_back(0);
+		attribs->indices.push_back(inclusiveModulo(count + 2, NUM_SIDES));
+	}
+
+	attribs->normals = util::calculateNormals(attribs->positions, attribs->indices);
 
 	return attribs;
 }

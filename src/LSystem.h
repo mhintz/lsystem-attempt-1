@@ -36,7 +36,7 @@ public:
 	// Overloads for ci::geom::Source
 	size_t getNumVertices() const override { computeSystem(); return mPositions.size(); };
 	size_t getNumIndices() const override { computeSystem(); return mIndices.size(); };
-	ci::geom::Primitive getPrimitive() const override { return ci::geom::Primitive::LINES; }
+	ci::geom::Primitive getPrimitive() const override { return ci::geom::Primitive::TRIANGLES; }
 	uint8_t getAttribDims( ci::geom::Attrib attr ) const override;
 	ci::geom::AttribSet getAvailableAttribs() const override;
 	void loadInto( ci::geom::Target *target, const ci::geom::AttribSet &requestedAttribs ) const override;

@@ -35,6 +35,9 @@ void lsystemApp::setup() {
 	gl::enableDepthRead();
 	gl::enableDepthWrite();
 
+	gl::enableFaceCulling();
+	gl::cullFace(GL_BACK);
+
 	redoSystem();
 }
 
