@@ -47,5 +47,5 @@ protected:
 	std::vector<TreeNode> mChildren;
 	TreeNode * mParent = nullptr;
 
-	// LeafBlob leaves; // TODO
+	// LeafBlob leaves; // TODO: create some leaves
 };
