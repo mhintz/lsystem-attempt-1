@@ -20,6 +20,7 @@ class lsystemApp : public App {
 
 	void redoSystem();
 
+	// TODO: Use the camera from the Frustum Culling sample - it's really nice
 	CameraPersp theCamera;
 	Arcball theArcball;
 	// float camDistance = 100.0f;
