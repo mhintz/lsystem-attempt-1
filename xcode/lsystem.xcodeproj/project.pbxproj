@@ -21,6 +21,8 @@
 		9FDB6F32E98A442A97537908 /* lsystemApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378AA98AC7E34620866BD482 /* lsystemApp.cpp */; };
 		BADF5E3CE33244879C6A55A0 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 70D82EF0668246B9833BF4E3 /* CinderApp.icns */; };
 		EF1498DA1BD458DC00770BC4 /* LSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF1498D81BD458DC00770BC4 /* LSystem.cpp */; settings = {ASSET_TAGS = (); }; };
+		EF6B899F1BDFA728008C3469 /* tree_flat_shader.frag in Resources */ = {isa = PBXBuildFile; fileRef = EF6B899D1BDFA728008C3469 /* tree_flat_shader.frag */; settings = {ASSET_TAGS = (); }; };
+		EF6B89A01BDFA728008C3469 /* tree_flat_shader.vert in Resources */ = {isa = PBXBuildFile; fileRef = EF6B899E1BDFA728008C3469 /* tree_flat_shader.vert */; settings = {ASSET_TAGS = (); }; };
 		EF9FC32D1BD92FCD0058D016 /* TreeNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF9FC32B1BD92FCD0058D016 /* TreeNode.cpp */; settings = {ASSET_TAGS = (); }; };
 		EF9FC3301BDDAAA50058D016 /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF9FC32E1BDDAAA50058D016 /* Util.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -47,6 +49,8 @@
 		8D1107320486CEB800E47090 /* lsystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lsystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF1498D81BD458DC00770BC4 /* LSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LSystem.cpp; path = ../src/LSystem.cpp; sourceTree = "<group>"; };
 		EF1498D91BD458DC00770BC4 /* LSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSystem.h; path = ../src/LSystem.h; sourceTree = "<group>"; };
+		EF6B899D1BDFA728008C3469 /* tree_flat_shader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = tree_flat_shader.frag; path = ../resources/shaders/tree_flat_shader.frag; sourceTree = "<group>"; };
+		EF6B899E1BDFA728008C3469 /* tree_flat_shader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = tree_flat_shader.vert; path = ../resources/shaders/tree_flat_shader.vert; sourceTree = "<group>"; };
 		EF9FC32B1BD92FCD0058D016 /* TreeNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TreeNode.cpp; path = ../src/TreeNode.cpp; sourceTree = "<group>"; };
 		EF9FC32C1BD92FCD0058D016 /* TreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeNode.h; path = ../src/TreeNode.h; sourceTree = "<group>"; };
 		EF9FC32E1BDDAAA50058D016 /* Util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Util.cpp; path = ../src/Util.cpp; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EF6B89A11BDFA72F008C3469 /* shaders */,
 				70D82EF0668246B9833BF4E3 /* CinderApp.icns */,
 				7B61A4EBA72E4AFD8CD38150 /* Info.plist */,
 			);
@@ -169,6 +174,15 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EF6B89A11BDFA72F008C3469 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				EF6B899D1BDFA728008C3469 /* tree_flat_shader.frag */,
+				EF6B899E1BDFA728008C3469 /* tree_flat_shader.vert */,
+			);
+			name = shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +238,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BADF5E3CE33244879C6A55A0 /* CinderApp.icns in Resources */,
+				EF6B899F1BDFA728008C3469 /* tree_flat_shader.frag in Resources */,
+				EF6B89A01BDFA728008C3469 /* tree_flat_shader.vert in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

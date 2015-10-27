@@ -58,15 +58,14 @@ void lsystemApp::redoSystem() {
 
 	theSystem.computeSystem();
 
-	auto shader = gl::ShaderDef().color();
-	auto program = gl::getStockShader(shader);
+	auto shaderProgram = gl::GlslProg::create(loadResource("tree_flat_shader.vert"), loadResource("tree_flat_shader.frag"));
 
 	theBatches.clear();
 	theBatches = std::vector<gl::BatchRef>();
 
 	for (int xmove = -numTreesX; xmove <= numTreesX; xmove++) {
 		for (int zmove = -numTreesZ; zmove <= numTreesZ; zmove++) {
-			gl::BatchRef iterBatch = gl::Batch::create(theSystem >> geom::Translate((float) xmove * 6.0f, 0.f, (float) zmove * 6.0f), program);
+			gl::BatchRef iterBatch = gl::Batch::create(theSystem >> geom::Translate((float) xmove * 6.0f, 0.f, (float) zmove * 6.0f), shaderProgram);
 			theBatches.push_back(iterBatch);
 		}
 	}
