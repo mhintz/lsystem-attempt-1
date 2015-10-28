@@ -57,7 +57,6 @@ void lsystemApp::redoSystem() {
 	auto shaderProgram = gl::GlslProg::create(loadResource("tree_flat_shader.vert"), loadResource("tree_flat_shader.frag"));
 
 	theBatches.clear();
-	theBatches = std::vector<gl::BatchRef>();
 
 	for (int xmove = -numTreesX; xmove <= numTreesX; xmove++) {
 		for (int zmove = -numTreesZ; zmove <= numTreesZ; zmove++) {
