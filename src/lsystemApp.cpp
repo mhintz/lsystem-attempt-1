@@ -1,7 +1,7 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
-#include "cinder/Arcball.h"
+#include "cinder/CameraUi.h"
 
 #include "LSystem.h"
 
@@ -20,14 +20,9 @@ class lsystemApp : public App {
 
 	void redoSystem();
 
-	// TODO: Use the camera from the Frustum Culling sample - it's really nice
 	CameraPersp theCamera;
-	Arcball theArcball;
-	// float camDistance = 100.0f;
-	// vec3 camTarget = vec3(0, 0, 0);
+	CameraUi theCamUi;
 
-	float camDistance = 10.0f;
-	vec3 camTarget = vec3(0, 0, 0);
 	int numTreesX = 0;
 	int numTreesZ = 0;
 
@@ -36,7 +31,7 @@ class lsystemApp : public App {
 };
 
 void lsystemApp::setup() {
-	theArcball = Arcball(& theCamera, cinder::Sphere(camTarget, camDistance * 2.f / 3.f));
+	theCamUi = CameraUi(& theCamera, getWindow());
 
 	gl::enableDepthRead();
 	gl::enableDepthWrite();
@@ -73,11 +68,7 @@ void lsystemApp::redoSystem() {
 }
 
 void lsystemApp::update() {
-	quat ballQuat = theArcball.getQuat();
-	vec3 camOffset = ballQuat * vec3(0, 0, camDistance);
-	vec3 camEye = camTarget + camOffset;
-	vec3 camUp = ballQuat * vec3(0, 1, 0);
-	theCamera.lookAt(camEye, camTarget, camUp);
+
 }
 
 void lsystemApp::draw() {
@@ -91,13 +82,11 @@ void lsystemApp::draw() {
 }
 
 void lsystemApp::mouseDown(MouseEvent evt) {
-	// Update the Arcball model
-	theArcball.mouseDown(evt);
+
 }
 
 void lsystemApp::mouseDrag(MouseEvent evt) {
-	// Update the Arcball model
-	theArcball.mouseDrag(evt);
+
 }
 
 CINDER_APP( lsystemApp, RendererGl )
