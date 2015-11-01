@@ -27,11 +27,11 @@ void LSystem::computeSystem() const
 
 	iterChildren.push_back(& root);
 
-	for (int i = 1; i <= mNumIterations; i++) {
+	for (int iterNum = 1; iterNum <= mNumIterations; iterNum++) {
 		nextChildren.clear();
 
 		for (TreeNode * iterBranch : iterChildren) {
-			iterBranch->generateChildren(i);
+			iterBranch->generateChildren();
 
 			vector<TreeNode> & branchChildren = iterBranch->getChildrenRef();
 			for (TreeNode & child : branchChildren) {

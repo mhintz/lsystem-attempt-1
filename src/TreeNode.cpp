@@ -41,7 +41,16 @@ quat TreeNode::getGlobalOrientation() {
 	if (mParent) {
 		return glm::normalize(mOrientation * mParent->getGlobalOrientation());
 	}
+
 	return mOrientation;
+}
+
+int TreeNode::getLevel() {
+	if (mParent) {
+		return mParent->getLevel() + 1;
+	}
+
+	return 0;
 }
 
 TreeNode::BranchAttribsRef TreeNode::getAttributes() {
@@ -79,7 +88,7 @@ TreeNode::BranchAttribsRef TreeNode::getAttributes() {
 	return attribs;
 }
 
-void TreeNode::generateChildren(int level) {
+void TreeNode::generateChildren() {
 	int const NUM_CHILDREN = 4;
 	for (int i = 0; i < NUM_CHILDREN; i++) {
 		int xAxisVal = i & 1; // 0, 1, 0, 1
@@ -91,7 +100,6 @@ void TreeNode::generateChildren(int level) {
 			.orientation(angleAxis(rotationAngle, vec3(xAxisVal, 0, zAxisVal)))
 			.position(1.0f)
 			.length(1.0f)
-			.level(level)
 			.scale(1.0f));
 		// I think this is necessary, because the argument to push_back is copied...
 		mChildren.back().setParent(this);
