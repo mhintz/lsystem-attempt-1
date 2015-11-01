@@ -7,6 +7,23 @@
 
 using namespace cinder;
 
+// Anonymous namespace for scoping purposes
+namespace {
+
+// Like a % b, but returns b (not 0) when a == b
+// returns 0 only when a == 0
+int inclusiveModulo(int a, int b) {
+	return a == b ? b : a % b;
+}
+
+void addVertexToAttribs(TreeNode::BranchAttribsRef attribs, vec3 const & pos, Color const & col) {
+	attribs->indices.push_back(attribs->positions.size());
+	attribs->positions.push_back(pos);
+	attribs->colors.push_back(col);
+}
+
+} // Anonymous namespace
+
 vec3 TreeNode::getVector() {
 	vec3 nodeVec = this->getGlobalOrientation() * vec3(0, 1, 0);
 	return mLength * normalize(nodeVec);
@@ -26,23 +43,6 @@ quat TreeNode::getGlobalOrientation() {
 	}
 	return mOrientation;
 }
-
-// Anonymous namespace for scoping purposes
-namespace {
-
-// Like a % b, but returns b (not 0) when a == b
-// returns 0 only when a == 0
-int inclusiveModulo(int a, int b) {
-	return a == b ? b : a % b;
-}
-
-void addVertexToAttribs(TreeNode::BranchAttribsRef attribs, vec3 const & pos, Color const & col) {
-	attribs->indices.push_back(attribs->positions.size());
-	attribs->positions.push_back(pos);
-	attribs->colors.push_back(col);
-}
-
-} // Anonymous namespace
 
 TreeNode::BranchAttribsRef TreeNode::getAttributes() {
 	TreeNode::BranchAttribsRef attribs = TreeNode::BranchAttribsRef(new BranchAttribs());
