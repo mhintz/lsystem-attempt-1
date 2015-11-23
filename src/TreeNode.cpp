@@ -3,6 +3,8 @@
 #include <deque>
 #include <cmath>
 
+#include "cinder/Rand.h"
+
 #include "Util.h"
 
 using namespace cinder;
@@ -20,6 +22,10 @@ void addVertexToAttribs(TreeNode::BranchAttribsRef attribs, vec3 const & pos, Co
 	attribs->indices.push_back(attribs->positions.size());
 	attribs->positions.push_back(pos);
 	attribs->colors.push_back(col);
+}
+
+int maxChildrenForLevel(int level) {
+	return round(fmax(1, 7 - level * 0.6f));
 }
 
 } // Anonymous namespace
@@ -45,12 +51,26 @@ quat TreeNode::getGlobalOrientation() {
 	return mOrientation;
 }
 
-int TreeNode::getLevel() {
-	if (mParent) {
-		return mParent->getLevel() + 1;
-	}
+// According to Da Vinci, the diameter of a branch is the sum of all the diameters
+// of its child branches. According to Søren Pirk, to get the diameter of any given
+// branch (call it "B"):
+// dRoot * ( sum of lengths of subtree from "B" to root / sum of lengths of entire tree's branches ) ^ some parameter
+// The value of "some parameter" is usually about 1.5, but it varies.
+// See "Efficient Processing of Plant Life", by Soeren Pirk
+float TreeNode::getSuperTreeLengthSum() {
+	return this->reduceSuperTree(0.0f, [] (float memo, TreeNode * node) -> float {
+		return memo + node->mLength;
+	});
+}
 
-	return 0;
+float TreeNode::getSubTreeLengthSum() {
+	return this->reduceBreadthFirst(0.0f, [this] (float memo, TreeNode * node) -> float {
+		if (node == this) {
+			return memo;
+		} else {
+			return memo + node->mLength;
+		}
+	});
 }
 
 TreeNode::BranchAttribsRef TreeNode::getAttributes() {
@@ -100,23 +120,29 @@ TreeNode::BranchAttribsRef TreeNode::getAttributes() {
 }
 
 void TreeNode::generateChildren() {
-	int const NUM_CHILDREN = 4;
+	int NUM_CHILDREN = randInt(1, maxChildrenForLevel(this->mLevel));
+	int MAX_ANGLE = randFloat(60.0f);
 	for (int i = 0; i < NUM_CHILDREN; i++) {
-		int xAxisVal = i & 1; // 0, 1, 0, 1
-		int zAxisVal = 1 - (i & 1);
-		int multiplier = std::round((float) i / NUM_CHILDREN) * 2 - 1; // -1, -1, 1, 1
-		float rotationAngle = glm::radians(30.0f * multiplier);
+		float xAxisRot = glm::radians(randFloat(-MAX_ANGLE, MAX_ANGLE));
+		float zAxisRot = glm::radians(randFloat(-MAX_ANGLE, MAX_ANGLE));
+		quat orientation = angleAxis(xAxisRot, vec3(1, 0, 0)) * angleAxis(zAxisRot, vec3(0, 0, 1));
 		// axis order becomes -z, -x, +z, +x
 		mChildren.push_back(TreeNode()
-			.orientation(angleAxis(rotationAngle, vec3(xAxisVal, 0, zAxisVal)))
+			.orientation(orientation)
 			.position(1.0f)
-			.length(1.0f)
-			.scale(1.0f));
-		// I think this is necessary, because the argument to push_back is copied...
-		mChildren.back().setParent(this);
+			.length(this->mLength * 0.7f)
+			.diameter(this->mDiameter * 0.85f)
+			.level(this->mLevel + 1)
+			.setParent(this));
 	}
 }
 
+void TreeNode::visitSuperTree(std::function<void (TreeNode *)> const & visitFunc) {
+	if (mParent) {
+		visitFunc(mParent);
+		return mParent->visitSuperTree(visitFunc);
+	}
+}
 
 void TreeNode::visitBreadthFirst(std::function<void (TreeNode *)> const & visitFunc) {
 	std::deque<TreeNode *> unvisited = { this };

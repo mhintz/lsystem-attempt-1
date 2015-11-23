@@ -42,6 +42,21 @@ void LSystem::computeSystem() const
 		iterChildren = nextChildren;
 	}
 
+	// To calculate and set the da vinci diameter
+	// float branchLengths = root.getSubTreeLengthSum();
+	// float rootWidth = root.getDiameter();
+
+	// root.visitBreadthFirst([branchLengths, rootWidth, & root] (TreeNode * node) {
+	// 	// root is captured here by reference. Compare node with the pointer to root
+	// 	if (node == & root) return;
+
+	// 	// Calculation of the diameter of the node based on an equation provided by Da Vinci
+	// 	// and used by Pirk (parameter value of 1.5 provided by Pirk)
+	// 	float lengthRatio = fmax(node->getSubTreeLengthSum() / branchLengths, 0.1f);
+	// 	float daVinciDiameter = rootWidth * pow(lengthRatio, 1.5f);
+	// 	node->diameter(daVinciDiameter);
+	// });
+
 	root.visitBreadthFirst([&] (TreeNode * theNode) {
 		TreeNode::BranchAttribsRef nodeAttributes = theNode->getAttributes();
 
