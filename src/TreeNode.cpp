@@ -60,27 +60,38 @@ TreeNode::BranchAttribsRef TreeNode::getAttributes() {
 	vec3 basePos = this->getGlobalBasePosition();
 	vec3 endPos = basePos + this->getVector();
 
-	int NUM_SIDES = 6;
-	float rotation = 2.0f * glm::pi<float>() / NUM_SIDES;
-	float radius = 0.25f;
+	int const NUM_SIDES = 10;
+	float rotation = 2.f * glm::pi<float>() / NUM_SIDES;
+	float radius = this->mDiameter / 2.f;
 	for (int count = 0; count < NUM_SIDES; count++) {
 		float radialRotation1 = rotation * count;
 		vec3 radial1 = radius * glm::normalize(orientation * glm::rotateY(vec3(1, 0, 0), radialRotation1));
-		vec3 vertPosition1 = basePos + radial1;
 
 		float radialRotation2 = rotation * (count + 1);
 		vec3 radial2 = radius * glm::normalize(orientation * glm::rotateY(vec3(1, 0, 0), radialRotation2));
-		vec3 vertPosition2 = basePos + radial2;
+
+		vec3 v1 = basePos + radial1;
+		vec3 v2 = basePos + radial2;
+		vec3 v3 = endPos + radial1;
+		vec3 v4 = endPos + radial2;
 
 		Color brownColor = Color::hex(0x5C3118);
 
-		addVertexToAttribs(attribs, endPos, brownColor);
-		addVertexToAttribs(attribs, vertPosition1, brownColor);
-		addVertexToAttribs(attribs, vertPosition2, brownColor);
-
-		addVertexToAttribs(attribs, vertPosition1, brownColor);
 		addVertexToAttribs(attribs, basePos, brownColor);
-		addVertexToAttribs(attribs, vertPosition2, brownColor);
+		addVertexToAttribs(attribs, v2, brownColor);
+		addVertexToAttribs(attribs, v1, brownColor);
+
+		addVertexToAttribs(attribs, v1, brownColor);
+		addVertexToAttribs(attribs, v2, brownColor);
+		addVertexToAttribs(attribs, v3, brownColor);
+
+		addVertexToAttribs(attribs, v2, brownColor);
+		addVertexToAttribs(attribs, v4, brownColor);
+		addVertexToAttribs(attribs, v3, brownColor);
+
+		addVertexToAttribs(attribs, endPos, brownColor);
+		addVertexToAttribs(attribs, v3, brownColor);
+		addVertexToAttribs(attribs, v4, brownColor);
 	}
 
 	attribs->normals = util::calculateNormals(attribs->positions, attribs->indices);
