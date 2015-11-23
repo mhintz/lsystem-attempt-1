@@ -50,7 +50,7 @@ void lsystemApp::keyDown(KeyEvent event) {
 
 void lsystemApp::redoSystem() {
 	theSystem = LSystem()
-		.iterations(4);
+		.iterations(7);
 
 	theSystem.computeSystem();
 

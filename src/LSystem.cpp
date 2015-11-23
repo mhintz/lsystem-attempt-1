@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-#include "cinder/Rand.h"
-
 #include "TreeNode.h"
 
 using namespace cinder;
@@ -20,7 +18,9 @@ void LSystem::computeSystem() const
 	mColors = vector<vec3>();
 	mIndices = vector<uint32_t>();
 
-	TreeNode root = TreeNode();
+	TreeNode root = TreeNode()
+		.diameter(0.5f)
+		.length(2.5f);
 
 	vector<TreeNode *> iterChildren;
 	vector<TreeNode *> nextChildren;
