@@ -80,7 +80,7 @@ TreeNode::BranchAttribsRef TreeNode::getAttributes() {
 	vec3 basePos = this->getGlobalBasePosition();
 	vec3 endPos = basePos + this->getVector();
 
-	int const NUM_SIDES = 10;
+	int const NUM_SIDES = 20;
 	float rotation = 2.f * glm::pi<float>() / NUM_SIDES;
 	float radius = this->mDiameter / 2.f;
 	for (int count = 0; count < NUM_SIDES; count++) {
@@ -131,7 +131,7 @@ void TreeNode::generateChildren() {
 			.orientation(orientation)
 			.position(1.0f)
 			.length(this->mLength * 0.7f)
-			.diameter(this->mDiameter * 0.85f)
+			.diameter(this->mDiameter * 0.90f)
 			.level(this->mLevel + 1)
 			.setParent(this));
 	}

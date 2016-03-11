@@ -19,7 +19,7 @@ void LSystem::computeSystem() const
 	mIndices = vector<uint32_t>();
 
 	TreeNode root = TreeNode()
-		.diameter(0.5f)
+		.diameter(0.25f)
 		.length(2.5f);
 
 	vector<TreeNode *> iterChildren;

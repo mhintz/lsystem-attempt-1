@@ -31,6 +31,8 @@ class lsystemApp : public App {
 };
 
 void lsystemApp::setup() {
+	setWindowSize(1000, 700);
+
 	theCamUi = CameraUi(& theCamera, getWindow());
 
 	gl::enableDepthRead();
