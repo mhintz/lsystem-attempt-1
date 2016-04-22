@@ -28,6 +28,8 @@ public:
 	float getSuperTreeLengthSum();
 	float getSubTreeLengthSum();
 	float getDiameter() { return mDiameter; };
+  float getDiameterFromParent();
+  float getDiameterFromChildren();
 
 	BranchAttribsRef getAttributes();
 	std::vector<TreeNode> & getChildrenRef() { return mChildren; };
@@ -44,7 +46,7 @@ public:
 	ReducerType reduceSuperTree(ReducerType, FuncType);
 
 	void generateChildren();
-	size_t numChildren() { return mChildren.size(); }
+	size_t getNumChildren() { return mChildren.size(); }
 
 	friend float lengthReducer(float memo, TreeNode * node) {
 		return memo + node->mLength;

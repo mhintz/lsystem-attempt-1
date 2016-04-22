@@ -2,6 +2,7 @@
 
 #include <deque>
 #include <cmath>
+#include <numeric>
 
 #include "cinder/Rand.h"
 
@@ -73,6 +74,34 @@ float TreeNode::getSubTreeLengthSum() {
 	});
 }
 
+float TreeNode::getDiameterFromParent() {
+    if (mParent) {
+      return mParent->getDiameterFromParent() / (float) mParent->getNumChildren();
+    } else {
+      return this->getDiameter();
+    }
+}
+
+float TreeNode::getDiameterFromChildren() {
+  if (mChildren.size() == 0) {
+    return this->getDiameter();
+  } else {
+    float memo = 0.0f;
+    for (auto & childNode : mChildren) {
+      memo += childNode.getDiameterFromChildren();
+    }
+
+    // Reduce over children's diameter
+    float accumulated = std::accumulate(mChildren.begin(), mChildren.end(), 0.f, [] (float memo, TreeNode & node) -> float {
+      return memo + node.getDiameterFromChildren();
+    });
+
+    std::cout << memo << ", " << accumulated << std::endl;
+
+    return memo;
+  }
+}
+
 TreeNode::BranchAttribsRef TreeNode::getAttributes() {
 	TreeNode::BranchAttribsRef attribs = TreeNode::BranchAttribsRef(new BranchAttribs());
 
@@ -82,7 +111,8 @@ TreeNode::BranchAttribsRef TreeNode::getAttributes() {
 
 	int const NUM_SIDES = 20;
 	float rotation = 2.f * glm::pi<float>() / NUM_SIDES;
-	float radius = this->mDiameter / 2.f;
+	// float radius = this->mDiameter / 2.f;
+	float radius = this->getDiameterFromChildren() / 2.f;
 	for (int count = 0; count < NUM_SIDES; count++) {
 		float radialRotation1 = rotation * count;
 		vec3 radial1 = radius * glm::normalize(orientation * glm::rotateY(vec3(1, 0, 0), radialRotation1));
