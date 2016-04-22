@@ -21,5 +21,7 @@ void main()
   vec3 diffuse = vertColor * max( dot( normal, posToLight ), 0.0 );
 
   // Output final color.
-  fragColor = vec4( diffuse, 1.0 );
+  // fragColor = vec4( diffuse, 1.0 );
+
+  fragColor = vec4(vertViewNormal, 1.0);
 }
